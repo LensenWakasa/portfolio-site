@@ -17,31 +17,42 @@ export default function AboutPage() {
 
       <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <div className="space-y-16">
-          {/* Bio */}
-          <div>
-            <h2 className="font-heading text-2xl font-bold">Background</h2>
-            <div className="mt-6 space-y-4 text-pretty leading-relaxed text-muted-foreground">
-              <p>
-                I'm Lensen Wakasa, an AI researcher and the founder of Wakasa Labs.
-                I work on continual learning and cognitive architectures — designing
-                systems that accumulate knowledge without forgetting what came before.
-              </p>
-              <p>
-                My current focus is SOMA (Selective cOgnitive Memory Architecture),
-                a system that routes new tasks to fast-changing adapters while
-                consolidating old knowledge into slow, frozen representations. The
-                goal is to solve catastrophic forgetting at scale.
-              </p>
-              <p>
-                I'm also a medic-in-training, which shapes how I think about
-                biological intelligence and gives me a front-row seat to the
-                problems AI can help solve in healthcare and science.
-              </p>
-              <p>
-                I live and work in Nakuru, Kenya. I believe the next generation of
-                AI research will come from unexpected places — and I'm building to
-                prove it.
-              </p>
+          {/* Bio with photo */}
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+            <div className="shrink-0">
+              <div className="relative h-48 w-48 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+                <img
+                  src="/images/image.png"
+                  alt="Lensen Wakasa"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+            <div className="flex-1">
+              <h2 className="font-heading text-2xl font-bold">Background</h2>
+              <div className="mt-4 space-y-4 text-pretty leading-relaxed text-muted-foreground">
+                <p>
+                  I'm Lensen Wakasa, an AI researcher and the founder of Wakasa Labs.
+                  I work on continual learning and cognitive architectures — designing
+                  systems that accumulate knowledge without forgetting what came before.
+                </p>
+                <p>
+                  My current focus is SOMA (Selective cOgnitive Memory Architecture),
+                  a system that routes new tasks to fast-changing adapters while
+                  consolidating old knowledge into slow, frozen representations. The
+                  goal is to solve catastrophic forgetting at scale.
+                </p>
+                <p>
+                  I'm also a medic-in-training, which shapes how I think about
+                  biological intelligence and gives me a front-row seat to the
+                  problems AI can help solve in healthcare and science.
+                </p>
+                <p>
+                  I live and work in Nakuru, Kenya. I believe the next generation of
+                  AI research will come from unexpected places — and I'm building to
+                  prove it.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -90,7 +101,7 @@ export default function AboutPage() {
               ].map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-border px-3 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground"
+                  className="rounded-full border border-border bg-background/50 px-3.5 py-1.5 font-mono text-[0.7rem] uppercase tracking-wider text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
                 >
                   {tag}
                 </span>
@@ -99,7 +110,7 @@ export default function AboutPage() {
           </div>
 
           {/* Contact */}
-          <div className="rounded-lg border border-border bg-card p-8">
+          <div className="rounded-2xl border border-border bg-card p-8">
             <h2 className="font-heading text-xl font-bold">Get in touch</h2>
             <p className="mt-3 text-muted-foreground">
               I'm always open to collaborations, research discussions, or just
@@ -108,7 +119,7 @@ export default function AboutPage() {
                 href="https://x.com/LensenWakasa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline underline-offset-4"
+                className="text-primary underline underline-offset-4 transition-opacity hover:opacity-80"
               >
                 X / Twitter
               </a>{" "}
@@ -117,7 +128,7 @@ export default function AboutPage() {
                 href="https://instagram.com/lensenwakasa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary underline underline-offset-4"
+                className="text-primary underline underline-offset-4 transition-opacity hover:opacity-80"
               >
                 Instagram
               </a>
@@ -142,8 +153,8 @@ function TimelineItem({
   return (
     <div className="flex gap-4">
       <div className="flex flex-col items-center">
-        <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-        <div className="mt-1 h-full w-px bg-border" />
+        <div className="h-3 w-3 rounded-full bg-primary ring-4 ring-primary/20" />
+        <div className="mt-2 h-full w-px bg-border" />
       </div>
       <div className="pb-6">
         <span className="font-mono text-xs uppercase tracking-wider text-primary">

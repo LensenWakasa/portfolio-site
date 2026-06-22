@@ -15,6 +15,8 @@ export type ReaderItem = {
   body: string
   link?: string | null
   views: number
+  /** cover/thumbnail image URL */
+  coverUrl?: string | null
 }
 
 export const KIND_LABEL: Record<ContentKind, string> = {

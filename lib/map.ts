@@ -12,6 +12,7 @@ export function projectToItem(p: Project): ReaderItem {
     body: p.content,
     link: p.link,
     views: p.views,
+    coverUrl: p.coverUrl,
   }
 }
 
@@ -26,6 +27,7 @@ export function paperToItem(p: Paper): ReaderItem {
     body: p.content,
     link: p.link,
     views: p.views,
+    coverUrl: null,
   }
 }
 
@@ -40,5 +42,6 @@ export function postToItem(p: Post): ReaderItem {
     body: p.content,
     link: null,
     views: p.views,
+    coverUrl: null,
   }
 }

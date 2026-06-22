@@ -1,5 +1,6 @@
 "use server"
 
+import { cookies } from "next/headers"
 import { db } from "@/lib/db"
 import { projects, papers, posts } from "@/lib/db/schema"
 import { eq, sql, ilike, or } from "drizzle-orm"
@@ -12,13 +13,35 @@ const tableFor = {
   post: posts,
 } as const
 
+function getViewCookieName(kind: ContentKind, id: number) {
+  return `viewed_${kind}_${id}`
+}
+
 export async function incrementView(kind: ContentKind, id: number): Promise<number> {
+  const cookieStore = await cookies()
+  const cookieName = getViewCookieName(kind, id)
+  const alreadyViewed = cookieStore.get(cookieName)?.value === "1"
+
   const table = tableFor[kind]
+
+  if (!alreadyViewed) {
+    await db
+      .update(table)
+      .set({ views: sql`${table.views} + 1` })
+      .where(eq(table.id, id))
+
+    cookieStore.set(cookieName, "1", {
+      maxAge: 60 * 60 * 24, // 24 hours
+      path: "/",
+      sameSite: "lax",
+    })
+  }
+
   const [row] = await db
-    .update(table)
-    .set({ views: sql`${table.views} + 1` })
+    .select({ views: table.views })
+    .from(table)
     .where(eq(table.id, id))
-    .returning({ views: table.views })
+
   return row?.views ?? 0
 }
 

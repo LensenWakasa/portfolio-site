@@ -21,7 +21,7 @@ export function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 rounded-b-2xl border-b border-border/60 bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
@@ -38,10 +38,10 @@ export function SiteNav() {
                 key={l.href}
                 href={l.href}
                 className={cn(
-                  "rounded-md px-3 py-2 font-mono text-xs uppercase tracking-wider transition-colors",
+                  "rounded-xl px-3 py-2 font-mono text-xs uppercase tracking-wider transition-all duration-200",
                   active
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground",
+                    ? "bg-accent text-accent-foreground"
+                    : "text-muted-foreground hover:bg-accent/50 hover:text-foreground",
                 )}
               >
                 {l.label}
@@ -61,7 +61,7 @@ export function SiteNav() {
             type="button"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label="Toggle menu"
-            className="rounded-full p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+            className="rounded-full p-2 text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground hover:scale-105"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -76,7 +76,7 @@ export function SiteNav() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMobileOpen(false)}
-                className="rounded-md px-2 py-3 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
+                className="rounded-xl px-2 py-3 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
               >
                 {l.label}
               </Link>

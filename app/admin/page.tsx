@@ -49,7 +49,7 @@ export default async function AdminDashboardPage() {
               <Link
                 key={s.label}
                 href={s.href}
-                className="rounded-lg border border-border bg-card p-6 transition-colors hover:border-primary/60"
+                className="rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
               >
                 <p className="font-heading text-3xl font-bold text-primary">
                   {s.count}
@@ -105,7 +105,7 @@ function QuickLink({
   return (
     <Link
       href={href}
-      className="rounded-lg border border-border bg-card p-6 transition-colors hover:border-primary/60"
+      className="rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5"
     >
       <h2 className="font-heading text-lg font-bold">{title}</h2>
       <p className="mt-2 text-sm text-muted-foreground">{description}</p>

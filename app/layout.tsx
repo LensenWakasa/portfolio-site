@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: 'Lensen Wakasa — Continual Learning & Cognitive Architectures',
   description:
     'Portfolio and research hub of Lensen Wakasa — AI researcher, founder of Wakasa Labs, and medic-in-training. Work on continual learning, cognitive architectures, and AI for science, from Nakuru, Kenya.',
-  generator: 'v0.app',
+  generator: 'Next.js',
   openGraph: {
     title: 'Lensen Wakasa — Research Hub',
     description:

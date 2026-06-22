@@ -24,7 +24,7 @@ export function TextField({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
-        className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
       />
     </div>
   )
@@ -51,7 +51,7 @@ export function TextArea({
         onChange={(e) => onChange(e.target.value)}
         required={required}
         rows={rows}
-        className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
       />
     </div>
   )
@@ -94,12 +94,12 @@ export function TagInput({
             }
           }}
           placeholder="Type and press Enter"
-          className="flex-1 rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          className="flex-1 rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
         />
         <button
           type="button"
           onClick={addTag}
-          className="rounded-md border border-border px-3 py-2 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
+          className="rounded-xl border border-border px-3 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-primary"
         >
           Add
         </button>
@@ -108,7 +108,7 @@ export function TagInput({
         {tags.map((t) => (
           <span
             key={t}
-            className="inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 font-mono text-xs text-muted-foreground"
+            className="inline-flex items-center gap-1 rounded-full border border-border bg-background/50 px-3 py-1.5 font-mono text-xs text-muted-foreground transition-colors hover:border-primary/40"
           >
             {t}
             <button
@@ -140,7 +140,7 @@ export function Checkbox({
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="h-4 w-4 rounded border-border bg-background text-primary"
+        className="h-4 w-4 rounded-lg border-border bg-background text-primary"
       />
       <span className="text-sm text-muted-foreground">{label}</span>
     </label>
@@ -163,7 +163,7 @@ export function NumberField({
         type="number"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+        className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
       />
     </div>
   )
@@ -181,7 +181,7 @@ export function FormActions({
       <button
         type="submit"
         disabled={loading}
-        className="rounded-md bg-primary px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="rounded-xl bg-primary px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 disabled:opacity-50"
       >
         {loading ? "Saving…" : "Save"}
       </button>
@@ -189,7 +189,7 @@ export function FormActions({
         type="button"
         onClick={onCancel}
         disabled={loading}
-        className="rounded-md border border-border px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
+        className="rounded-xl border border-border px-5 py-2.5 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-foreground disabled:opacity-50"
       >
         Cancel
       </button>

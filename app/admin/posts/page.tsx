@@ -39,7 +39,7 @@ export default function AdminPostsPage() {
           </div>
           <Link
             href="/admin/posts/new"
-            className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20"
           >
             <Plus className="h-3.5 w-3.5" />
             New
@@ -57,7 +57,7 @@ export default function AdminPostsPage() {
             {posts.map((p) => (
               <div
                 key={p.id}
-                className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3"
+                className="flex items-center justify-between rounded-xl border border-border bg-card px-4 py-3 transition-all duration-200 hover:border-primary/30"
               >
                 <div className="min-w-0">
                   <p className="truncate font-heading text-base font-semibold">
@@ -70,14 +70,14 @@ export default function AdminPostsPage() {
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/admin/posts/${p.id}/edit`}
-                    className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                    className="rounded-lg p-2 text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
                   >
                     <Pencil className="h-4 w-4" />
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleDelete(p.id)}
-                    className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                    className="rounded-lg p-2 text-muted-foreground transition-all duration-200 hover:bg-destructive/10 hover:text-destructive"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>

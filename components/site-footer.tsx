@@ -8,7 +8,7 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border/60">
+    <footer className="mt-24 rounded-t-3xl border-t border-border/60">
       <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-12 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="font-heading text-lg font-bold">Lensen Wakasa</p>
@@ -23,14 +23,14 @@ export function SiteFooter() {
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-xs uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary"
+              className="rounded-lg px-2 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-primary"
             >
               {s.label}
             </a>
           ))}
           <Link
             href="/admin"
-            className="font-mono text-xs uppercase tracking-wider text-muted-foreground/50 transition-colors hover:text-primary"
+            className="rounded-lg px-2 py-1 font-mono text-xs uppercase tracking-wider text-muted-foreground/50 transition-all duration-200 hover:bg-accent hover:text-primary"
           >
             Admin
           </Link>

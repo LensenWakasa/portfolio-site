@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-lg border border-border bg-card p-8 shadow-xl">
+      <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-xl">
         <h1 className="font-heading text-2xl font-bold">Admin</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Enter the admin password to continue.
@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
               required
             />
           </div>
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-primary px-4 py-2 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="w-full rounded-xl bg-primary px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-primary-foreground transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:shadow-primary/20 disabled:opacity-50"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>

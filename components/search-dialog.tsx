@@ -76,11 +76,11 @@ export function SearchDialog() {
 
       {open && (
         <div
-          className="fixed inset-0 z-[110] flex items-start justify-center bg-background/80 p-4 pt-[12vh] backdrop-blur-sm"
+          className="fixed inset-0 z-[110] flex items-start justify-center bg-background/70 p-4 pt-[12vh] backdrop-blur-md"
           onClick={() => setOpen(false)}
         >
           <div
-            className="w-full max-w-xl overflow-hidden rounded-lg border border-border bg-card shadow-2xl"
+            className="w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-3 border-b border-border px-4">
@@ -124,7 +124,7 @@ export function SearchDialog() {
                     <button
                       type="button"
                       onClick={() => handleSelect(r)}
-                      className="flex w-full flex-col gap-1 border-b border-border/60 px-4 py-3 text-left transition-colors hover:bg-accent"
+                      className="flex w-full flex-col gap-1 rounded-lg px-4 py-3 text-left transition-all duration-200 hover:bg-accent mx-1 my-0.5"
                     >
                       <div className="flex items-center gap-2">
                         <span className="label-mono text-primary">

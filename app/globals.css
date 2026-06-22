@@ -62,7 +62,7 @@
   --border: oklch(0.3 0.02 72);
   --input: oklch(0.28 0.02 72);
   --ring: oklch(0.72 0.11 72);
-  --radius: 0.4rem;
+  --radius: 0.75rem;
   --sidebar: oklch(0.15 0.013 68);
   --sidebar-foreground: oklch(0.93 0.03 88);
   --sidebar-primary: oklch(0.72 0.11 72);
@@ -122,5 +122,12 @@
     text-transform: uppercase;
     letter-spacing: 0.18em;
     font-size: 0.7rem;
+  }
+}
+
+@layer base {
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
 }
