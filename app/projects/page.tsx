@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { PageHeader } from "@/components/page-header"
 import { ContentCard } from "@/components/content-card"
 import { getProjects } from "@/lib/data"
