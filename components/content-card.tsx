@@ -1,7 +1,7 @@
 "use client"
 
+import Link from "next/link"
 import { Eye, ArrowUpRight } from "lucide-react"
-import { useReader } from "@/components/reader-context"
 import type { ReaderItem } from "@/lib/types"
 
 function StatusChip({ status }: { status: string }) {
@@ -20,8 +20,6 @@ function StatusChip({ status }: { status: string }) {
 }
 
 export function ContentCard({ item }: { item: ReaderItem }) {
-  const reader = useReader()
-
   // Extract status from meta for projects
   const statusMatch = item.meta?.match(/^(active|building|research|revenue)/i)
   const status = statusMatch ? statusMatch[1] : null
@@ -30,24 +28,35 @@ export function ContentCard({ item }: { item: ReaderItem }) {
     : item.meta
 
   return (
-    <button
-      type="button"
-      onClick={() => reader.open(item)}
+    <Link
+      href={item.href ?? "#"}
       className="group flex h-full w-full flex-col rounded-2xl border border-border bg-card text-left transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 overflow-hidden"
     >
       {/* Thumbnail */}
-      {item.coverUrl && (
-        <div className="relative h-40 w-full overflow-hidden">
+      <div className="relative h-40 w-full overflow-hidden border-b border-border/60 bg-background">
+        {item.coverUrl ? (
           <img
             src={item.coverUrl}
             alt={item.title}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
-        </div>
-      )}
+        ) : (
+          <div className="flex h-full flex-col justify-between p-5">
+            <div className="flex items-center justify-between">
+              <span className="label-mono text-primary">{item.kind}</span>
+              <span className="h-2 w-16 rounded-full bg-primary/40" />
+            </div>
+            <div>
+              <div className="mb-3 h-14 w-14 rounded-md border border-primary/40 bg-primary/10" />
+              <div className="h-2 w-4/5 rounded-full bg-muted" />
+              <div className="mt-2 h-2 w-2/3 rounded-full bg-muted/70" />
+            </div>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+      </div>
 
-      <div className={`flex flex-col flex-1 ${item.coverUrl ? "p-5 pt-3" : "p-6"}`}>
+      <div className="flex flex-1 flex-col p-5 pt-3">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 flex-wrap">
             {status && <StatusChip status={status} />}
@@ -91,6 +100,6 @@ export function ContentCard({ item }: { item: ReaderItem }) {
           <ArrowUpRight className="h-3.5 w-3.5" />
         </span>
       </div>
-    </button>
+    </Link>
   )
 }

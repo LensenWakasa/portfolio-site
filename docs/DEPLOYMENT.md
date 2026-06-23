@@ -23,8 +23,9 @@ This is a Next.js 16 portfolio site with a dark editorial aesthetic (deep bronze
 Create a `.env.local` file at the project root with these variables:
 
 ```bash
-# Database (Supabase or any Postgres)
-DATABASE_URL=postgresql://postgres:[password]@[host]:5432/postgres
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
 # Admin auth
 ADMIN_PASSWORD=your-secure-password-here
@@ -34,12 +35,12 @@ SESSION_SECRET=minimum-32-character-random-string-here
 # No other env vars required for core functionality
 ```
 
-### Getting your DATABASE_URL from Supabase
+### Getting your Supabase env vars
 
 1. Go to [supabase.com](https://supabase.com) and open your project
-2. Click **Settings** → **Database**
-3. Under **Connection string**, copy the **URI** format
-4. Replace `[YOUR-PASSWORD]` with your database password
+2. Click **Project Settings** -> **API**
+3. Copy **Project URL** into `NEXT_PUBLIC_SUPABASE_URL`
+4. Copy **anon public** into `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 ---
 

@@ -26,6 +26,7 @@ export type Paper = {
   year: string | null
   link: string | null
   pdfUrl: string | null
+  coverUrl: string | null
   tags: string[]
   sortOrder: number
   views: number
@@ -39,6 +40,7 @@ export type Post = {
   excerpt: string
   content: string
   year: string | null
+  coverUrl: string | null
   publishedAt: string
   tags: string[]
   views: number

@@ -15,6 +15,20 @@ export async function getProjects(): Promise<Project[]> {
   return (data ?? []).map(rowToProject)
 }
 
+export async function getProject(slug: string): Promise<Project | null> {
+  if (!hasSupabaseConfig) {
+    return sampleProjects.find((project) => project.slug === slug) ?? null
+  }
+
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .single()
+  if (error) return null
+  return rowToProject(data)
+}
+
 export async function getFeaturedProjects(): Promise<Project[]> {
   if (!hasSupabaseConfig) return sampleProjects.filter((p) => p.featured)
 
@@ -39,6 +53,20 @@ export async function getPapers(): Promise<Paper[]> {
   return (data ?? []).map(rowToPaper)
 }
 
+export async function getPaper(slug: string): Promise<Paper | null> {
+  if (!hasSupabaseConfig) {
+    return samplePapers.find((paper) => paper.slug === slug) ?? null
+  }
+
+  const { data, error } = await supabase
+    .from("papers")
+    .select("*")
+    .eq("slug", slug)
+    .single()
+  if (error) return null
+  return rowToPaper(data)
+}
+
 export async function getPosts(): Promise<Post[]> {
   if (!hasSupabaseConfig) return samplePosts
 
@@ -48,6 +76,20 @@ export async function getPosts(): Promise<Post[]> {
     .order("published_at", { ascending: false })
   if (error) throw new Error(error.message)
   return (data ?? []).map(rowToPost)
+}
+
+export async function getPost(slug: string): Promise<Post | null> {
+  if (!hasSupabaseConfig) {
+    return samplePosts.find((post) => post.slug === slug) ?? null
+  }
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("slug", slug)
+    .single()
+  if (error) return null
+  return rowToPost(data)
 }
 
 export async function getStats() {
@@ -95,6 +137,7 @@ function rowToPaper(row: Record<string, unknown>): Paper {
     year: (row.year as string | null) ?? null,
     link: (row.link as string | null) ?? null,
     pdfUrl: (row.pdf_url as string | null) ?? null,
+    coverUrl: (row.cover_url as string | null) ?? null,
     tags: (row.tags as string[]) ?? [],
     sortOrder: (row.sort_order as number) ?? 0,
     views: (row.views as number) ?? 0,
@@ -110,6 +153,7 @@ function rowToPost(row: Record<string, unknown>): Post {
     excerpt: row.excerpt as string,
     content: row.content as string,
     year: (row.year as string | null) ?? null,
+    coverUrl: (row.cover_url as string | null) ?? null,
     publishedAt: row.published_at as string,
     tags: (row.tags as string[]) ?? [],
     views: (row.views as number) ?? 0,

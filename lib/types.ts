@@ -14,6 +14,8 @@ export type ReaderItem = {
   /** full long-form body */
   body: string
   link?: string | null
+  downloadUrl?: string | null
+  href?: string
   views: number
   /** cover/thumbnail image URL */
   coverUrl?: string | null

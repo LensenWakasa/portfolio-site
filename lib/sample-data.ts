@@ -51,6 +51,7 @@ export const samplePapers: Paper[] = [
     year: "2026",
     link: null,
     pdfUrl: null,
+    coverUrl: null,
     tags: ["Continual Learning"],
     sortOrder: 0,
     views: 74,
@@ -68,6 +69,7 @@ export const samplePosts: Post[] = [
     content:
       "Continual learning matters because real work is sequential. Models that forget under pressure are brittle; systems that consolidate knowledge can become durable tools.",
     year: "2026",
+    coverUrl: null,
     publishedAt: "2026-06-04T00:00:00.000Z",
     tags: ["AI", "Research"],
     views: 92,
