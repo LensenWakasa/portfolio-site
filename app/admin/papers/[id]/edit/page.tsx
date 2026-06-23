@@ -10,6 +10,7 @@ import {
   NumberField,
   FormActions,
 } from "../../../components/content-form"
+import { mapPaper } from "@/lib/db/mappers"
 import type { Paper } from "@/lib/db/schema"
 
 export default function EditPaperPage({
@@ -25,7 +26,7 @@ export default function EditPaperPage({
     params.then(({ id }) => {
       fetch(`/api/admin/papers/${id}`)
         .then((r) => r.json())
-        .then((data) => setForm(data))
+        .then((data) => setForm(mapPaper(data)))
     })
   }, [params])
 

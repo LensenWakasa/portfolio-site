@@ -1,12 +1,6 @@
-import { drizzle } from "drizzle-orm/node-postgres"
-import { Pool } from "pg"
-import * as schema from "./schema"
+import { createClient } from "@supabase/supabase-js"
 
-const globalForDb = globalThis as unknown as { pool?: Pool }
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const pool =
-  globalForDb.pool ?? new Pool({ connectionString: process.env.DATABASE_URL })
-
-if (process.env.NODE_ENV !== "production") globalForDb.pool = pool
-
-export const db = drizzle(pool, { schema })
+export const supabase = createClient(supabaseUrl, supabaseKey)

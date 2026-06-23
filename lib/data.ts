@@ -1,32 +1,44 @@
 import "server-only"
-import { db } from "@/lib/db"
-import { projects, papers, posts } from "@/lib/db/schema"
-import { asc, desc, eq } from "drizzle-orm"
+import { supabase } from "@/lib/db"
+import type { Project, Paper, Post } from "@/lib/db/schema"
 
-export async function getProjects() {
-  return db
-    .select()
-    .from(projects)
-    .orderBy(asc(projects.sortOrder), desc(projects.createdAt))
+export async function getProjects(): Promise<Project[]> {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false })
+  if (error) throw new Error(error.message)
+  return (data ?? []).map(rowToProject)
 }
 
-export async function getFeaturedProjects() {
-  return db
-    .select()
-    .from(projects)
-    .where(eq(projects.featured, true))
-    .orderBy(asc(projects.sortOrder))
+export async function getFeaturedProjects(): Promise<Project[]> {
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("featured", true)
+    .order("sort_order", { ascending: true })
+  if (error) throw new Error(error.message)
+  return (data ?? []).map(rowToProject)
 }
 
-export async function getPapers() {
-  return db
-    .select()
-    .from(papers)
-    .orderBy(asc(papers.sortOrder), desc(papers.createdAt))
+export async function getPapers(): Promise<Paper[]> {
+  const { data, error } = await supabase
+    .from("papers")
+    .select("*")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: false })
+  if (error) throw new Error(error.message)
+  return (data ?? []).map(rowToPaper)
 }
 
-export async function getPosts() {
-  return db.select().from(posts).orderBy(desc(posts.publishedAt))
+export async function getPosts(): Promise<Post[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .order("published_at", { ascending: false })
+  if (error) throw new Error(error.message)
+  return (data ?? []).map(rowToPost)
 }
 
 export async function getStats() {
@@ -40,5 +52,58 @@ export async function getStats() {
     papers: r.length,
     posts: w.length,
     views: totalViews,
+  }
+}
+
+function rowToProject(row: Record<string, unknown>): Project {
+  return {
+    id: row.id as number,
+    slug: row.slug as string,
+    title: row.title as string,
+    summary: row.summary as string,
+    content: row.content as string,
+    status: row.status as string,
+    tags: (row.tags as string[]) ?? [],
+    link: (row.link as string | null) ?? null,
+    coverUrl: (row.cover_url as string | null) ?? null,
+    year: (row.year as string | null) ?? null,
+    featured: (row.featured as boolean) ?? false,
+    sortOrder: (row.sort_order as number) ?? 0,
+    views: (row.views as number) ?? 0,
+    createdAt: row.created_at as string,
+  }
+}
+
+function rowToPaper(row: Record<string, unknown>): Paper {
+  return {
+    id: row.id as number,
+    slug: row.slug as string,
+    title: row.title as string,
+    abstract: row.abstract as string,
+    content: row.content as string,
+    authors: row.authors as string,
+    venue: (row.venue as string | null) ?? null,
+    year: (row.year as string | null) ?? null,
+    link: (row.link as string | null) ?? null,
+    pdfUrl: (row.pdf_url as string | null) ?? null,
+    tags: (row.tags as string[]) ?? [],
+    sortOrder: (row.sort_order as number) ?? 0,
+    views: (row.views as number) ?? 0,
+    createdAt: row.created_at as string,
+  }
+}
+
+function rowToPost(row: Record<string, unknown>): Post {
+  return {
+    id: row.id as number,
+    slug: row.slug as string,
+    title: row.title as string,
+    excerpt: row.excerpt as string,
+    content: row.content as string,
+    year: (row.year as string | null) ?? null,
+    publishedAt: row.published_at as string,
+    tags: (row.tags as string[]) ?? [],
+    views: (row.views as number) ?? 0,
+    createdAt: row.created_at as string,
   }
 }

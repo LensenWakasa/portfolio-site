@@ -11,6 +11,7 @@ import {
   NumberField,
   FormActions,
 } from "../../../components/content-form"
+import { mapProject } from "@/lib/db/mappers"
 import type { Project } from "@/lib/db/schema"
 
 export default function EditProjectPage({
@@ -19,7 +20,6 @@ export default function EditProjectPage({
   params: Promise<{ id: string }>
 }) {
   const router = useRouter()
-  const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState<Project | null>(null)
 
@@ -27,7 +27,7 @@ export default function EditProjectPage({
     params.then(({ id }) => {
       fetch(`/api/admin/projects/${id}`)
         .then((r) => r.json())
-        .then((data) => setForm(data))
+        .then((data) => setForm(mapProject(data)))
     })
   }, [params])
 
