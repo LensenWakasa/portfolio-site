@@ -12,7 +12,7 @@ export default function VisionPage() {
       <PageHeader
         eyebrow="The long view"
         title="Vision"
-        description="What I'm building toward — a research agenda and a set of bets on the future of learning machines."
+        description="What I'm building toward ---> a research agenda and a set of bets on the future of learning machines."
       />
 
       <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
@@ -21,10 +21,10 @@ export default function VisionPage() {
           <div>
             <h2 className="font-heading text-2xl font-bold">Core thesis</h2>
             <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
-              The most important property of an intelligent system is not how much it knows,
-              but how gracefully it learns without forgetting. I believe the next leap in AI
+              The most important property of an intelligent system is not only how it's able to make use of what it knows,
+              but also how gracefully it learns without forgetting. I believe the next leap in AI
               will come not from scaling alone, but from architectures that accumulate
-              knowledge across tasks, domains, and time — the way a human researcher does.
+              knowledge across tasks, domains, and time the way a human researcher does.
             </p>
             <p className="mt-4 text-pretty leading-relaxed text-muted-foreground">
               This is the motivation behind SOMA — a selective cognitive memory architecture
@@ -56,7 +56,7 @@ export default function VisionPage() {
               <ScenarioCard
                 title="Exceptional"
                 subtitle="2027–2030"
-                body="Catastrophic forgetting is solved at scale. Models learn for years without retraining, accumulating expertise across disciplines. Wakasa Labs operates a distributed training cluster in East Africa, and Kenya becomes a recognized hub for AI-for-science research."
+                body="Catastrophic forgetting is solved at scale. Models learn for years without retraining, accumulating expertise across disciplines. Wakasa Labs operates a distributed training cluster in United States."
               />
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function VisionPage() {
               <Principle
                 number="04"
                 title="Science as craft"
-                body="Good research is like good carpentry — patient, precise, and grounded in the material. There are no shortcuts."
+                body="Good research is like good carpentry - patient, precise, and grounded in the material. There are no shortcuts."
               />
             </ul>
           </div>
@@ -94,8 +94,8 @@ export default function VisionPage() {
             <p className="mt-2 font-heading text-3xl font-bold">2040</p>
             <p className="mt-2 text-muted-foreground">
               By 2040, I want Wakasa Labs to be a self-sustaining research institution
-              operating at the frontier of continual learning and AI for science — with
-              deep roots in East Africa and collaborations across the world.
+              operating at the frontier of continual learning and AI for science with
+              deep roots in United States and collaborations across the world.
             </p>
           </div>
         </div>

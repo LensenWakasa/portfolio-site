@@ -33,11 +33,11 @@ export default function AboutPage() {
               <div className="mt-4 space-y-4 text-pretty leading-relaxed text-muted-foreground">
                 <p>
                   I'm Lensen Wakasa, an AI researcher and the founder of Wakasa Labs.
-                  I work on continual learning and cognitive architectures — designing
-                  systems that accumulate knowledge without forgetting what came before.
+                  I work on continual learning and cognitive architectures: designing
+                  systems that accumulate knowledge without forgetting what came before, are capable of few shot learning and have superhuman level reasoning.
                 </p>
                 <p>
-                  My current focus is SOMA (Selective cOgnitive Memory Architecture),
+                  My current focus is SOMA (Self-Organising Modular Architecture),
                   a system that routes new tasks to fast-changing adapters while
                   consolidating old knowledge into slow, frozen representations. The
                   goal is to solve catastrophic forgetting at scale.
@@ -48,8 +48,8 @@ export default function AboutPage() {
                   problems AI can help solve in healthcare and science.
                 </p>
                 <p>
-                  I live and work in Nakuru, Kenya. I believe the next generation of
-                  AI research will come from unexpected places — and I'm building to
+                  I live and work in Kenya. I believe the next generation of
+                  AI research will come from unexpected places and I'm building to
                   prove it.
                 </p>
               </div>
@@ -61,7 +61,7 @@ export default function AboutPage() {
             <h2 className="font-heading text-2xl font-bold">Timeline</h2>
             <div className="mt-6 space-y-6">
               <TimelineItem
-                year="2024–now"
+                year="2025–now"
                 title="Wakasa Labs"
                 body="Founded to build continual-learning systems and AI-for-science tools. Running experiments on adapter routing, memory replay, and multi-scale training."
               />
@@ -71,12 +71,12 @@ export default function AboutPage() {
                 body="Medical training, with a focus on how biological systems handle memory, adaptation, and disease — metaphors that inform the architecture work."
               />
               <TimelineItem
-                year="2022–2024"
+                year="2026–2027"
                 title="Research apprenticeship"
                 body="Self-directed study in deep learning, moving from standard supervised learning into the continual-learning literature. Built early prototypes of what became SOMA."
               />
               <TimelineItem
-                year="2019–2022"
+                year="2024–2026"
                 title="Foundations"
                 body="Undergraduate work in quantitative disciplines. First exposure to machine learning through coursework and Kaggle competitions."
               />
@@ -90,13 +90,14 @@ export default function AboutPage() {
               {[
                 "Continual Learning",
                 "Cognitive Architectures",
-                "Adapter Routing",
-                "Multi-Scale Training",
+                "Proxima Centauri",
+                "Self-Organising Modular Architectures",
+                "Curiosity Driven Learning",
                 "AI for Science",
                 "Computational Biology",
                 "PyTorch",
-                "EdTech",
-                "Kenya",
+                "Self-Learning Systems",
+                "Deep & Long Space Flights",
                 "Quantitative Finance",
               ].map((tag) => (
                 <span
@@ -125,7 +126,7 @@ export default function AboutPage() {
               </a>{" "}
               or{" "}
               <a
-                href="https://instagram.com/lensenwakasa"
+                href="https://instagram.com/__lensen"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline underline-offset-4 transition-opacity hover:opacity-80"

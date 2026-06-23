@@ -40,16 +40,18 @@ export default async function HomePage() {
 
         <div className="mx-auto flex min-h-[88vh] max-w-5xl flex-col justify-center px-4 py-24 sm:px-6">
           <p className="label-mono text-primary">
-            AI Researcher · Wakasa Labs · Nakuru, Kenya
+              Medicine Student • Researcher • Builder
           </p>
           <h1 className="mt-6 max-w-3xl text-balance font-heading text-5xl font-bold leading-[1.05] sm:text-6xl md:text-7xl">
-            Building machines that learn for a lifetime.
+            Building intelligent machines for science and Deep Space Exploration.
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
             I&apos;m Lensen Wakasa. I work on continual learning, cognitive
-            architectures, and AI for science — designing systems that
-            accumulate knowledge without forgetting what came before.
+            architectures and AI for science. Designing systems with goal oriented curiosity,
+            accumulate knowledge without forgetting and posses amazing reasoning capabilities.
           </p>
+
+          
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/projects"

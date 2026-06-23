@@ -8,7 +8,7 @@ import { postToItem } from "@/lib/map"
 export const metadata = {
   title: "Writing — Lensen Wakasa",
   description:
-    "Essays, notes, and observations from the notebook — on AI research, building in Kenya, and the long view.",
+    "Essays, notes, and observations from the notebook on AI research, building in Kenya, and the long view.",
 }
 
 export default async function WritingPage() {

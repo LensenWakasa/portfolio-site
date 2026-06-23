@@ -19,7 +19,7 @@ export default async function ProjectsPage() {
       <PageHeader
         eyebrow="Selected work"
         title="Projects"
-        description="Systems I have designed and built — research architectures, training infrastructure, and tools. Click any card to read the full write-up."
+        description="Systems I have designed and built, research architectures, training infrastructure, and tools. Click any card to read the full write-up."
       />
       <section className="mx-auto max-w-5xl px-4 pt-8 sm:px-6">
         <div className="grid gap-5 sm:grid-cols-2">
