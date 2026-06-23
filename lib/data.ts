@@ -1,8 +1,11 @@
 import "server-only"
-import { supabase } from "@/lib/db"
+import { hasSupabaseConfig, supabase } from "@/lib/db"
 import type { Project, Paper, Post } from "@/lib/db/schema"
+import { samplePapers, samplePosts, sampleProjects } from "@/lib/sample-data"
 
 export async function getProjects(): Promise<Project[]> {
+  if (!hasSupabaseConfig) return sampleProjects
+
   const { data, error } = await supabase
     .from("projects")
     .select("*")
@@ -13,6 +16,8 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getFeaturedProjects(): Promise<Project[]> {
+  if (!hasSupabaseConfig) return sampleProjects.filter((p) => p.featured)
+
   const { data, error } = await supabase
     .from("projects")
     .select("*")
@@ -23,6 +28,8 @@ export async function getFeaturedProjects(): Promise<Project[]> {
 }
 
 export async function getPapers(): Promise<Paper[]> {
+  if (!hasSupabaseConfig) return samplePapers
+
   const { data, error } = await supabase
     .from("papers")
     .select("*")
@@ -33,6 +40,8 @@ export async function getPapers(): Promise<Paper[]> {
 }
 
 export async function getPosts(): Promise<Post[]> {
+  if (!hasSupabaseConfig) return samplePosts
+
   const { data, error } = await supabase
     .from("posts")
     .select("*")

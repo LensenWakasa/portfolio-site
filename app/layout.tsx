@@ -1,24 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Playfair_Display, Source_Serif_4, JetBrains_Mono } from 'next/font/google'
 import { AppShell } from '@/components/app-shell'
 import './globals.css'
-
-const playfair = Playfair_Display({
-  variable: '--font-playfair',
-  subsets: ['latin'],
-  display: 'swap',
-})
-const sourceSerif = Source_Serif_4({
-  variable: '--font-source-serif',
-  subsets: ['latin'],
-  display: 'swap',
-})
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains',
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
   title: 'Lensen Wakasa — Continual Learning & Cognitive Architectures',
@@ -50,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} bg-background`}
+      className="dark bg-background"
       suppressHydrationWarning
     >
       <head>

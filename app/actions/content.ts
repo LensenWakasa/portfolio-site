@@ -1,8 +1,8 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { supabase } from "@/lib/db"
-import type { Project, Paper, Post } from "@/lib/db/schema"
+import { hasSupabaseConfig, supabase } from "@/lib/db"
+import { samplePapers, samplePosts, sampleProjects } from "@/lib/sample-data"
 
 export type ContentKind = "project" | "paper" | "post"
 
@@ -17,6 +17,17 @@ function getViewCookieName(kind: ContentKind, id: number) {
 }
 
 export async function incrementView(kind: ContentKind, id: number): Promise<number> {
+  if (!hasSupabaseConfig) {
+    const rows =
+      kind === "project"
+        ? sampleProjects
+        : kind === "paper"
+          ? samplePapers
+          : samplePosts
+    const row = rows.find((item) => item.id === id)
+    return row?.views ?? 0
+  }
+
   const cookieStore = await cookies()
   const cookieName = getViewCookieName(kind, id)
   const alreadyViewed = cookieStore.get(cookieName)?.value === "1"
@@ -67,6 +78,49 @@ export type SearchResult = {
 export async function searchContent(query: string): Promise<SearchResult[]> {
   const q = query.trim()
   if (q.length < 2) return []
+
+  if (!hasSupabaseConfig) {
+    const normalized = q.toLowerCase()
+    return [
+      ...sampleProjects.map((x) => ({
+        kind: "project" as const,
+        id: x.id,
+        title: x.title,
+        snippet: x.summary,
+        body: x.content,
+        meta: [x.status, x.year].filter(Boolean).join(" · "),
+        link: x.link,
+        tags: x.tags,
+        views: x.views,
+      })),
+      ...samplePapers.map((x) => ({
+        kind: "paper" as const,
+        id: x.id,
+        title: x.title,
+        snippet: x.abstract,
+        body: x.content,
+        meta: [x.authors, x.venue, x.year].filter(Boolean).join(" · "),
+        link: x.link,
+        tags: x.tags,
+        views: x.views,
+      })),
+      ...samplePosts.map((x) => ({
+        kind: "post" as const,
+        id: x.id,
+        title: x.title,
+        snippet: x.excerpt,
+        body: x.content,
+        meta: x.year ?? undefined,
+        link: null,
+        tags: x.tags,
+        views: x.views,
+      })),
+    ].filter((item) =>
+      [item.title, item.snippet, item.body, item.meta, item.tags.join(" ")]
+        .filter(Boolean)
+        .some((value) => value.toLowerCase().includes(normalized))
+    )
+  }
 
   const [{ data: pj }, { data: pp }, { data: ps }] = await Promise.all([
     supabase.from("projects").select("*").ilike("title", `%${q}%`).limit(6),
