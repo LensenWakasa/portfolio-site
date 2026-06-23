@@ -1,35 +1,32 @@
 export const dynamic = "force-dynamic"
 
 import Link from "next/link"
-import { db } from "@/lib/db"
-import { projects, papers, posts } from "@/lib/db/schema"
-import { sql } from "drizzle-orm"
+import { supabase } from "@/lib/db"
 import { LogoutButton } from "./logout-button"
 
 export default async function AdminDashboardPage() {
-  const [projectCount, paperCount, postCount, totalViews] = await Promise.all([
-    db.select({ count: sql<number>`count(*)` }).from(projects),
-    db.select({ count: sql<number>`count(*)` }).from(papers),
-    db.select({ count: sql<number>`count(*)` }).from(posts),
-    db
-      .select({ total: sql<number>`coalesce(sum(views),0)` })
-      .from(projects)
-      .then(async (p) => {
-        const pv = p[0]?.total ?? 0
-        const pap = await db
-          .select({ total: sql<number>`coalesce(sum(views),0)` })
-          .from(papers)
-        const po = await db
-          .select({ total: sql<number>`coalesce(sum(views),0)` })
-          .from(posts)
-        return pv + (pap[0]?.total ?? 0) + (po[0]?.total ?? 0)
-      }),
+  const [{ count: projectCount }, { count: paperCount }, { count: postCount }] =
+    await Promise.all([
+      supabase.from("projects").select("*", { count: "exact", head: true }),
+      supabase.from("papers").select("*", { count: "exact", head: true }),
+      supabase.from("posts").select("*", { count: "exact", head: true }),
+    ])
+
+  const [{ data: pv }, { data: pap }, { data: po }] = await Promise.all([
+    supabase.from("projects").select("views"),
+    supabase.from("papers").select("views"),
+    supabase.from("posts").select("views"),
   ])
 
+  const totalViews =
+    (pv ?? []).reduce((s, x) => s + (x.views ?? 0), 0) +
+    (pap ?? []).reduce((s, x) => s + (x.views ?? 0), 0) +
+    (po ?? []).reduce((s, x) => s + (x.views ?? 0), 0)
+
   const stats = [
-    { label: "Projects", count: projectCount[0].count, href: "/admin/projects" },
-    { label: "Papers", count: paperCount[0].count, href: "/admin/papers" },
-    { label: "Posts", count: postCount[0].count, href: "/admin/posts" },
+    { label: "Projects", count: projectCount ?? 0, href: "/admin/projects" },
+    { label: "Papers", count: paperCount ?? 0, href: "/admin/papers" },
+    { label: "Posts", count: postCount ?? 0, href: "/admin/posts" },
     { label: "Total views", count: totalViews, href: null },
   ]
 

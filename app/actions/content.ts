@@ -1,17 +1,16 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { db } from "@/lib/db"
-import { projects, papers, posts } from "@/lib/db/schema"
-import { eq, sql, ilike, or } from "drizzle-orm"
+import { supabase } from "@/lib/db"
+import type { Project, Paper, Post } from "@/lib/db/schema"
 
 export type ContentKind = "project" | "paper" | "post"
 
-const tableFor = {
-  project: projects,
-  paper: papers,
-  post: posts,
-} as const
+const tableFor: Record<ContentKind, string> = {
+  project: "projects",
+  paper: "papers",
+  post: "posts",
+}
 
 function getViewCookieName(kind: ContentKind, id: number) {
   return `viewed_${kind}_${id}`
@@ -22,25 +21,33 @@ export async function incrementView(kind: ContentKind, id: number): Promise<numb
   const cookieName = getViewCookieName(kind, id)
   const alreadyViewed = cookieStore.get(cookieName)?.value === "1"
 
-  const table = tableFor[kind]
-
   if (!alreadyViewed) {
-    await db
-      .update(table)
-      .set({ views: sql`${table.views} + 1` })
-      .where(eq(table.id, id))
+    const { data: row } = await supabase
+      .from(tableFor[kind])
+      .select("views")
+      .eq("id", id)
+      .single()
+
+    const newViews = (row?.views ?? 0) + 1
+    await supabase
+      .from(tableFor[kind])
+      .update({ views: newViews })
+      .eq("id", id)
 
     cookieStore.set(cookieName, "1", {
-      maxAge: 60 * 60 * 24, // 24 hours
+      maxAge: 60 * 60 * 24,
       path: "/",
       sameSite: "lax",
     })
+
+    return newViews
   }
 
-  const [row] = await db
-    .select({ views: table.views })
-    .from(table)
-    .where(eq(table.id, id))
+  const { data: row } = await supabase
+    .from(tableFor[kind])
+    .select("views")
+    .eq("id", id)
+    .single()
 
   return row?.views ?? 0
 }
@@ -60,59 +67,46 @@ export type SearchResult = {
 export async function searchContent(query: string): Promise<SearchResult[]> {
   const q = query.trim()
   if (q.length < 2) return []
-  const like = `%${q}%`
 
-  const [pj, pp, ps] = await Promise.all([
-    db
-      .select()
-      .from(projects)
-      .where(or(ilike(projects.title, like), ilike(projects.summary, like), ilike(projects.content, like)))
-      .limit(6),
-    db
-      .select()
-      .from(papers)
-      .where(or(ilike(papers.title, like), ilike(papers.abstract, like), ilike(papers.content, like)))
-      .limit(6),
-    db
-      .select()
-      .from(posts)
-      .where(or(ilike(posts.title, like), ilike(posts.excerpt, like), ilike(posts.content, like)))
-      .limit(6),
+  const [{ data: pj }, { data: pp }, { data: ps }] = await Promise.all([
+    supabase.from("projects").select("*").ilike("title", `%${q}%`).limit(6),
+    supabase.from("papers").select("*").ilike("title", `%${q}%`).limit(6),
+    supabase.from("posts").select("*").ilike("title", `%${q}%`).limit(6),
   ])
 
   const results: SearchResult[] = [
-    ...pj.map((x) => ({
+    ...(pj ?? []).map((x: Record<string, unknown>) => ({
       kind: "project" as const,
-      id: x.id,
-      title: x.title,
-      snippet: x.summary,
-      body: x.content,
+      id: x.id as number,
+      title: x.title as string,
+      snippet: x.summary as string,
+      body: x.content as string,
       meta: [x.status, x.year].filter(Boolean).join(" · "),
-      link: x.link,
-      tags: x.tags,
-      views: x.views,
+      link: (x.link as string | null) ?? null,
+      tags: (x.tags as string[]) ?? [],
+      views: (x.views as number) ?? 0,
     })),
-    ...pp.map((x) => ({
+    ...(pp ?? []).map((x: Record<string, unknown>) => ({
       kind: "paper" as const,
-      id: x.id,
-      title: x.title,
-      snippet: x.abstract,
-      body: x.content,
+      id: x.id as number,
+      title: x.title as string,
+      snippet: x.abstract as string,
+      body: x.content as string,
       meta: [x.authors, x.venue, x.year].filter(Boolean).join(" · "),
-      link: x.link,
-      tags: x.tags,
-      views: x.views,
+      link: (x.link as string | null) ?? null,
+      tags: (x.tags as string[]) ?? [],
+      views: (x.views as number) ?? 0,
     })),
-    ...ps.map((x) => ({
+    ...(ps ?? []).map((x: Record<string, unknown>) => ({
       kind: "post" as const,
-      id: x.id,
-      title: x.title,
-      snippet: x.excerpt,
-      body: x.content,
-      meta: x.year ?? undefined,
+      id: x.id as number,
+      title: x.title as string,
+      snippet: x.excerpt as string,
+      body: x.content as string,
+      meta: (x.year as string | null) ?? undefined,
       link: null,
-      tags: x.tags,
-      views: x.views,
+      tags: (x.tags as string[]) ?? [],
+      views: (x.views as number) ?? 0,
     })),
   ]
 

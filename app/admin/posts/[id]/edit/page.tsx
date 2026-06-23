@@ -9,6 +9,7 @@ import {
   TagInput,
   FormActions,
 } from "../../../components/content-form"
+import { mapPost } from "@/lib/db/mappers"
 import type { Post } from "@/lib/db/schema"
 
 export default function EditPostPage({
@@ -24,7 +25,7 @@ export default function EditPostPage({
     params.then(({ id }) => {
       fetch(`/api/admin/posts/${id}`)
         .then((r) => r.json())
-        .then((data) => setForm(data))
+        .then((data) => setForm(mapPost(data)))
     })
   }, [params])
 
